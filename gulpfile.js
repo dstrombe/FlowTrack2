@@ -59,6 +59,7 @@ var testServer = {};
 var files = {
     model_files:  ['lib/model/**/*.js'],
     view_files: ['www/js/**/*.js'],
+    jsx_files: ['www/js/**/*.jsx'],
     controller_files: ['lib/controller/**/*.js'],
     util_files: ['lib/util/**/*.js'],
 
@@ -71,7 +72,8 @@ var files = {
     integration_test_files: ['test/integration/**/*.js'],
 
     coverage_files : ['coverage/**/coverage*.json'],
-    instrumented_files: 'coverage/www/test_files'
+    instrumented_files: 'coverage/www/test_files',
+    build_dest: 'dist'
 };
 
 // Configuration settings for various tasks / processes
@@ -131,6 +133,9 @@ gulp.task('test', function (cb) {
         'integration_test', 'coverage_report')(cb);
 });
 
+
+gulp.task('build', ['build_jsx']);
+
 // Run all tests
 gulp.task('full', function (cb) {
     process.env.NODE_ENV = process.env.NODE_ENV || 'viewTest';
@@ -169,7 +174,7 @@ gulp.task('bower', function (cb) {
 });
 
 // Delete data files and modules
-gulp.task('clean', ['clean_bower','clean_modules','clean_coverage']);
+gulp.task('clean', ['clean_bower','clean_modules','clean_coverage', 'clean_dist']);
 
 // This task gets run by travis-ci
 gulp.task('travis', ['full']);
@@ -187,6 +192,15 @@ gulp.task('watch', function (cb) {
     gulp.watch(files.controller_files, ['controller']);
     gulp.watch(files.model_files, ['model']);
     gulp.watch(files.view_files, ['view']);
+    cb();
+});
+
+
+gulp.task('build_jsx', function (cb) {
+    gulp.src(files.jsx_files)
+        .pipe(plugins.babel())
+        .pipe(gulp.dest(files.build_dest));
+
     cb();
 });
 
@@ -274,6 +288,11 @@ gulp.task('clean_coverage', function (cb) {
 
 gulp.task('clean_modules', function (cb) {
     del.sync('node_modules');
+    cb();
+});
+
+gulp.task('clean_dist', function (cb) {
+    del.sync('dist/*');
     cb();
 });
 

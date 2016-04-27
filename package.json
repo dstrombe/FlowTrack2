@@ -25,11 +25,13 @@
     "on-finished": "^2.3.0"
   },
   "devDependencies": {
+    "babel-preset-react": "^6.5.0",
     "chai": "^3.5.0",
     "chai-as-promised": "^5.2.0",
     "del": "^2.2.0",
     "fs": "0.0.2",
     "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
     "gulp-bower": "0.0.13",
     "gulp-debug": "^2.1.2",
     "gulp-istanbul": "^0.10.3",
