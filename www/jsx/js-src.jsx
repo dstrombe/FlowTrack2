@@ -1,4 +1,6 @@
-// tutorial1.js
+var React = require('react');
+var ReactDOM = require('react-dom');
+
 var CommentBox = React.createClass({
   render: function() {
     return (
@@ -8,6 +10,7 @@ var CommentBox = React.createClass({
     );
   }
 });
+
 ReactDOM.render(
   <CommentBox />,
   document.getElementById('content')

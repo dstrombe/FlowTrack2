@@ -56,14 +56,14 @@ var files = {
   viewFiles: ['www/js/**/*.js'],
   controllerFiles: ['lib/controller/**/*.js'],
   utilFiles: ['lib/util/**/*.js'],
-  jsxFiles: ['www/js/**/*.jsx'],
+  jsxFiles: ['www/jsx/**/*.jsx'],
 
   modelTestFiles: ['test/model/**/*.js'],
   viewTestFiles: ['test/view/**/*.js'],
   controllerTestFiles: ['test/controller/**/*.js'],
 
-  allSrc: ['www/js/**/*.js', 'lib/**/*.js', 'bin/flowTrack.js', 'test/**/*.js',
-    'gulpfile.js'],
+  allSrc: ['www/jsx/**/*.jsx', 'www/js/**/*.js', 'lib/**/*.js',
+           'bin/flowTrack.js', 'test/**/*.js', 'gulpfile.js'],
 
   integrationTestFiles: ['test/integration/**/*.js'],
 
