@@ -56,7 +56,7 @@ var files = {
   viewFiles: ['www/js/**/*.js'],
   controllerFiles: ['lib/controller/**/*.js'],
   utilFiles: ['lib/util/**/*.js'],
-  jsx_files: ['www/js/**/*.jsx'],
+  jsxFiles: ['www/js/**/*.jsx'],
 
   modelTestFiles: ['test/model/**/*.js'],
   viewTestFiles: ['test/view/**/*.js'],
@@ -69,7 +69,7 @@ var files = {
 
   coverageFiles: ['coverage/**/coverage*.json'],
   instrumentedFiles: 'coverage/www/test_files',
-  build_dest: 'dist'
+  buildDest: 'dist'
 };
 
 // Configuration settings for various tasks / processes
@@ -142,7 +142,6 @@ gulp.task('test', function(cb) {
       'integration_test', 'coverage_report')(cb);
 });
 
-
 gulp.task('build', ['build_jsx']);
 
 // Run all tests
@@ -185,7 +184,8 @@ gulp.task('bower', function(cb) {
 });
 
 // Delete data files and modules
-gulp.task('clean', ['clean_bower', 'clean_modules', 'clean_coverage', 'clean_dist']);
+gulp.task('clean', ['clean_bower', 'clean_modules', 'clean_coverage',
+  'clean_dist']);
 
 // This task gets run by travis-ci
 gulp.task('travis', ['full']);
@@ -204,11 +204,10 @@ gulp.task('watch', function(cb) {
   cb();
 });
 
-
 gulp.task('build_jsx', function(cb) {
-  gulp.src(files.jsx_files)
+  gulp.src(files.jsxFiles)
         .pipe(plugins.babel())
-        .pipe(gulp.dest(files.build_dest));
+        .pipe(gulp.dest(files.buildDest));
 
   cb();
 });
