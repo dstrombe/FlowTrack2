@@ -41,6 +41,8 @@ var gulp = require('gulp');
 var lazypipe = require('lazypipe');
 var del = require('del');
 var wiredep = require('wiredep').stream;
+var webpack = require('webpack-stream');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // Load all of the gulp-* modules listed in package.json into
 // plugins.*  I nomrally don't like this type of obfuscation
@@ -113,6 +115,20 @@ var config = {
     env: {
       NODE_ENV: 'viewTest'
     }
+  },
+  JSX: {
+    module: {
+      loaders: [
+        {test: /\.jsx$/, loader: 'babel-loader'}
+      ]
+    },
+    plugins: [
+      new HtmlWebpackPlugin({
+        filename: 'index.html',
+        template: 'www/html/index2.html',
+        inject: 'body'
+      })
+    ]
   }
 };
 
@@ -206,8 +222,8 @@ gulp.task('watch', function(cb) {
 
 gulp.task('build_jsx', function(cb) {
   gulp.src(files.jsxFiles)
-        .pipe(plugins.babel())
-        .pipe(gulp.dest(files.buildDest));
+        .pipe(webpack(config.JSX))
+        .pipe(gulp.dest(files.buildDest + '/jsx'));
 
   cb();
 });
